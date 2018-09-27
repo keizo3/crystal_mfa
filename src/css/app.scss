@@ -16,18 +16,16 @@
 
 @charset "utf-8";
 
-//辺の長さを指定
-$edge: 200px;
+$edge: 180px;
 
 @mixin square {
     height: $edge;
     width: $edge;
 }
 
-//29x29パターンに分割したあと、小数点以下切り捨て
 @mixin dot {
-    height: floor($edge / 41);
-    width: floor($edge / 41);
+    height: floor($edge / 37);
+    width: floor($edge / 37);
 }
 
 .qrcode {

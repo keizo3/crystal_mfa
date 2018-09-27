@@ -28,3 +28,6 @@ dependencies:
     version: ~> 0.2
   crystal-two-factor-auth:
     github: SushiChain/crystal-two-factor-auth
+  qrencode:
+    github: woodruffw/qrencode.cr
+    branch: master

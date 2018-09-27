@@ -60,6 +60,10 @@ shards:
     github: will/crystal-pg
     version: 0.15.0
 
+  qrencode:
+    github: woodruffw/qrencode.cr
+    commit: bcf43f4f2e3325178ba86a09ce820fdc0763f219
+
   selenium:
     github: paulcsmith/selenium-webdriver-crystal
     commit: e01b0fbd7dda6179f44be73e1850d05977b774ba

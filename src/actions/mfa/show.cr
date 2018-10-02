@@ -23,8 +23,8 @@ class Mfa::Show < BrowserAction
         color = QRencode::Util.black?(byte) ? black : white
 
         # 1dot strech to 4*4 dot
-        (0..(strech - 1)).each do |dot_row|
-          (0..(strech - 1)).each do |dot_col|
+        (0...strech).each do |dot_row|
+          (0...strech).each do |dot_col|
             canvas[col_idx * strech + dot_col, row_idx + dot_row] = color
           end
         end

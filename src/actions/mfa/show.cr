@@ -17,18 +17,19 @@ class Mfa::Show < BrowserAction
     white = RGBA.from_rgb_n(255, 255, 255, 8)
 
     row_idx = 0
+    strech = 4
     qrcode_data.each_row do |row|
       row.each_with_index do |byte, col_idx|
         color = QRencode::Util.black?(byte) ? black : white
 
         # 1dot strech to 4*4 dot
-        (0..4).each do |dot_row|
-          (0..4).each do |dot_col|
-            canvas[col_idx * 4 + dot_col, row_idx + dot_row] = color
+        (0..(strech - 1)).each do |dot_row|
+          (0..(strech - 1)).each do |dot_col|
+            canvas[col_idx * strech + dot_col, row_idx + dot_row] = color
           end
         end
       end
-      row_idx = row_idx + 4
+      row_idx = row_idx + strech
     end
     StumpyPNG.write(canvas, "public" + img_assets_url)
 

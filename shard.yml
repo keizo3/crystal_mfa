@@ -31,3 +31,6 @@ dependencies:
   qrencode:
     github: woodruffw/qrencode.cr
     branch: master
+  stumpy_png:
+    github: stumpycr/stumpy_png
+    version: "~> 4.4.1"

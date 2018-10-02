@@ -72,6 +72,14 @@ shards:
     github: luckyframework/shell-table.cr
     commit: 078a04ea58ead5203bb435a3b5fff448ddabaeea
 
+  stumpy_core:
+    github: stumpycr/stumpy_core
+    version: 1.8.2
+
+  stumpy_png:
+    github: stumpycr/stumpy_png
+    version: 4.4.1
+
   teeplate:
     github: mosop/teeplate
     version: 0.6.1

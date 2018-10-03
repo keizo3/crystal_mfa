@@ -1,12 +1,12 @@
 class Mfa::ShowPage < MainLayout
   needs google_qrcode_url : String
-  needs mfa_code : String
+  needs totp_code : String
   needs qrcode_data : QRencode::QRcode
   needs img_assets_url : String
   needs base64_qrcode_image : String
 
   def content
-    h1 "MFA QR code"
+    h1 "TOTP QR code"
     text "Email:  #{@current_user.email}"
     helpful_tips
     qr_code
@@ -14,7 +14,7 @@ class Mfa::ShowPage < MainLayout
     br
     generated_base64_qr_code
     br
-    text "now mfa code: #{@mfa_code}"
+    text "now totp code: #{@totp_code}"
   end
 
   private def helpful_tips

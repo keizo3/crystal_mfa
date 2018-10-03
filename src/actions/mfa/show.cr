@@ -17,7 +17,7 @@ class Mfa::Show < BrowserAction
 
     render ShowPage,
       google_qrcode_url: google_qrcode_url,
-      mfa_code: get_mfa_code(current_user.base32_secret.to_s),
+      totp_code: get_totp_code(current_user.base32_secret.to_s),
       qrcode_data: get_qrcode_data(current_user.base32_secret.to_s, current_user.email),
       img_assets_url: img_assets_url,
       base64_qrcode_image: base64_qrcode_image.to_s

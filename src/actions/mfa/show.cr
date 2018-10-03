@@ -4,11 +4,12 @@ class Mfa::Show < BrowserAction
 
   get "/mfa" do
     # QRcode base64 image generate
-    img_assets_url = "/assets/images/qrcode-%s.png" % UUID.random
     base64_qrcode_image = generate_qrcode_image_base64(current_user.base32_secret.to_s, current_user.email)
 
     # QRcode image generate
     # image use onetime as possible for security
+    # need to delete images after use
+    img_assets_url = "/assets/images/qrcode-%s.png" % UUID.random
     generate_qrcode_image(img_assets_url, current_user.base32_secret.to_s, current_user.email)
 
     # sample google API QRcode image generate

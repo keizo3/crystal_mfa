@@ -1,8 +1,9 @@
 class Mfa::ShowPage < MainLayout
-  needs img_url : String
+  needs google_qrcode_url : String
   needs mfa_code : String
   needs qrcode_data : QRencode::QRcode
   needs img_assets_url : String
+  needs base64_qrcode_image : String
 
   def content
     h1 "MFA QR code"
@@ -11,6 +12,7 @@ class Mfa::ShowPage < MainLayout
     qr_code
     generated_qr_code
     br
+    generated_base64_qr_code
     br
     text "now mfa code: #{@mfa_code}"
   end
@@ -18,8 +20,8 @@ class Mfa::ShowPage < MainLayout
   private def helpful_tips
     h3 "Google API QRcode"
     ul do
-      li "imageURL: #{@img_url}"
-      img src: @img_url
+      li "imageURL: #{@google_qrcode_url}"
+      img src: @google_qrcode_url
     end
   end
 
@@ -39,5 +41,10 @@ class Mfa::ShowPage < MainLayout
   private def generated_qr_code
     h3 "Generated QRcode png"
     img src: @img_assets_url
+  end
+
+  private def generated_base64_qr_code
+    h3 "Generated QRcode base64"
+    img src: "data:image/png;base64," + @base64_qrcode_image
   end
 end

@@ -1,40 +1,24 @@
-include StumpyPNG
-
 class Mfa::Show < BrowserAction
+  include Totp::Mfa
+  include Totp::Qrcode
+
   get "/mfa" do
-    base32_secret = current_user.base32_secret.to_s
-    diff = TOTP::DEFAULT_TIME_STEP_SECONDS - ((Time.now.epoch_ms / 1000) % TOTP::DEFAULT_TIME_STEP_SECONDS)
-    mfa_code = TOTP.generate_number_string(base32_secret)
+    # QRcode base64 image generate
+    img_assets_url = "/assets/images/qrcode-%s.png" % UUID.random
+    base64_qrcode_image = generate_qrcode_image_base64(current_user.base32_secret.to_s, current_user.email)
 
-    issuer = "test-mfa"
-    uri = URI.unescape(TOTP.otp_auth_url(issuer + ":" + current_user.email, base32_secret) + "%26issuer=" + issuer)
-    qrcode_data = QRencode::QRcode.new(uri)
+    # QRcode image generate
+    # image use onetime as possible for security
+    generate_qrcode_image(img_assets_url, current_user.base32_secret.to_s, current_user.email)
 
-    # image generate
-    img_assets_url = "/assets/images/qrcode.png"
-    canvas = Canvas.new(qrcode_data.width * 4 + 1, qrcode_data.width * 4 + 1)
-    black = RGBA.from_rgb_n(0, 0, 0, 8)
-    white = RGBA.from_rgb_n(255, 255, 255, 8)
+    # sample google API QRcode image generate
+    google_qrcode_url = TOTP.qr_code_url("test-mfa-google:" + current_user.email, current_user.base32_secret.to_s) + "%26issuer=test-mfa-google"
 
-    row_idx = 0
-    strech = 4
-    qrcode_data.each_row do |row|
-      row.each_with_index do |byte, col_idx|
-        color = QRencode::Util.black?(byte) ? black : white
-
-        # 1dot strech to 4*4 dot
-        (0...strech).each do |dot_row|
-          (0...strech).each do |dot_col|
-            canvas[col_idx * strech + dot_col, row_idx + dot_row] = color
-          end
-        end
-      end
-      row_idx = row_idx + strech
-    end
-    StumpyPNG.write(canvas, "public" + img_assets_url)
-
-    google_qrcode_url = TOTP.qr_code_url(issuer + "-google:" + current_user.email, base32_secret) + "%26issuer=" + issuer + "-google"
-
-    render ShowPage, img_url: google_qrcode_url, mfa_code: mfa_code, qrcode_data: qrcode_data, img_assets_url: img_assets_url
+    render ShowPage,
+      google_qrcode_url: google_qrcode_url,
+      mfa_code: get_mfa_code(current_user.base32_secret.to_s),
+      qrcode_data: get_qrcode_data(current_user.base32_secret.to_s, current_user.email),
+      img_assets_url: img_assets_url,
+      base64_qrcode_image: base64_qrcode_image.to_s
   end
 end

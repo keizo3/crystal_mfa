@@ -1,0 +1,33 @@
+
+$edge: 180px;
+
+@mixin square {
+    height: $edge;
+    width: $edge;
+}
+
+@mixin dot {
+    height: floor($edge / 37);
+    width: floor($edge / 37);
+}
+
+.qrcode {
+    @include square;
+    div {
+        overflow: hidden;
+    }
+}
+
+span {
+    @include dot;
+    display: block;
+    float: left;
+}
+
+.b {
+    background-color: #000;
+}
+
+.w {
+    background-color: #FFF;
+}

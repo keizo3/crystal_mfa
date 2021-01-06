@@ -11,3 +11,4 @@ yarn-error.log
 server
 *.dwarf
 *.local.cr
+.DS_Store

@@ -60,6 +60,10 @@ shards:
     github: will/crystal-pg
     version: 0.15.0
 
+  qrencode:
+    github: woodruffw/qrencode.cr
+    commit: bcf43f4f2e3325178ba86a09ce820fdc0763f219
+
   selenium:
     github: paulcsmith/selenium-webdriver-crystal
     commit: e01b0fbd7dda6179f44be73e1850d05977b774ba
@@ -67,6 +71,14 @@ shards:
   shell-table:
     github: luckyframework/shell-table.cr
     commit: 078a04ea58ead5203bb435a3b5fff448ddabaeea
+
+  stumpy_core:
+    github: stumpycr/stumpy_core
+    version: 1.8.2
+
+  stumpy_png:
+    github: stumpycr/stumpy_png
+    version: 4.4.1
 
   teeplate:
     github: mosop/teeplate
